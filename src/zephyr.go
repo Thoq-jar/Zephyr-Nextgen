@@ -6,6 +6,7 @@ import (
 
 func setupEditor() *widget.Entry {
 	editor := widget.NewMultiLineEntry()
-	editor.SetPlaceHolder("Enter your code here...")
+	editor.SetPlaceHolder("Begin typing...")
+
 	return editor
 }

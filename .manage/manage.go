@@ -7,6 +7,21 @@ import (
 	"path/filepath"
 )
 
+func banner() {
+	banner := `
++----------------------------------+
++ ▗▄▄▄▄▖▗▄▄▄▖▗▄▄▖ ▗▖ ▗▖▗▖  ▗▖▗▄▄▖  +
++    ▗▞▘▐▌   ▐▌ ▐▌▐▌ ▐▌ ▝▚▞▘ ▐▌ ▐▌ +
++  ▗▞▘  ▐▛▀▀▘▐▛▀▘ ▐▛▀▜▌  ▐▌  ▐▛▀▚▖ +
++ ▐▙▄▄▄▖▐▙▄▄▖▐▌   ▐▌ ▐▌  ▐▌  ▐▌ ▐▌ +
++----------------------------------+
+
+You are using: Zephyr Utils.
+
+`
+	fmt.Print(banner)
+}
+
 func run(command string, args ...string) (string, error) {
 	cmd := exec.Command(command, args...)
 	output, err := cmd.CombinedOutput()
@@ -33,7 +48,7 @@ func buildProject() {
 		return
 	}
 
-	args := append([]string{"build", "-o", "main"}, files...)
+	args := append([]string{"build", "-o", "Zephyr"}, files...)
 	output, err = run("go", args...)
 	if err != nil {
 		fmt.Printf("%v\nOutput: %v\n", err, output)
@@ -43,7 +58,7 @@ func buildProject() {
 
 func runProject() {
 	buildProject()
-	output, err := run("./main")
+	output, err := run("./Zephyr")
 	if err != nil {
 		fmt.Printf("%v\nOutput: %v\n", err, output)
 		return
@@ -79,7 +94,7 @@ func cleanProject() {
 		fmt.Printf("%v\n: %v\n", err, output)
 		return
 	}
-	cleanTwo, err := run("rm", "-rf", "main")
+	cleanTwo, err := run("rm", "-rf", "Zephyr")
 	if err != nil {
 		fmt.Printf("%v\n: %v\n", err, output)
 		return
@@ -102,6 +117,8 @@ func main() {
 			"--lint to lint the project")
 		return
 	}
+
+	banner()
 
 	if *buildFlag {
 		fmt.Println("Building...")
